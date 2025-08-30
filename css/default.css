@@ -1,0 +1,507 @@
+/* CSS reset */
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ul {
+  list-style-type: none;
+}
+body {
+	line-height: 1;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+img {
+    display: block;
+}
+
+
+
+/* Page layout */
+
+html {
+  font-size: 0.7em;
+}
+
+body {
+  display: grid;
+  grid-template-columns: [left] 16rem [content] auto [right];
+  grid-template-rows: [top] auto [content-top] auto [content-bottom] auto [bottom];
+  max-width: 80rem;
+  margin: auto;
+}
+
+header.logo {
+  border-bottom: 1px solid #888;
+  grid-column: left / content;
+  grid-row: top / content-top;
+  align-self: end;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+header.blog-title {
+  border-bottom: 1px solid #888;
+  grid-column: content / right;
+  grid-row: top / content-top;
+  align-self: end;
+}
+
+.blog-title-container {
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+}
+
+main {
+  grid-column: content / right;
+  grid-row: content-top / content-bottom;
+}
+
+.main-container {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+nav {
+  text-align: right;
+  grid-column: left / content;
+  grid-row: content-top / content-bottom;
+  margin-bottom: 2rem;
+}
+
+.sidebar-container {
+  margin-right: 3rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+nav a {
+  margin-bottom: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+footer {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  border-top: 1px solid #888;
+  grid-column: left / right;
+  grid-row: content-bottom / bottom;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-box {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.comments {
+  margin-top: 1rem;
+}
+
+.teaser {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #888;
+}
+
+/* Styling */
+
+/*
+Medieval orange: #e06f45
+Medieval blue: #356f43
+Rubrication red: #b84f62
+*/
+
+body {
+  font-size: 2rem;
+  font-family: 'Dosis', sans-serif;
+  letter-spacing: 0.02rem;
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-feature-settings: "kern";
+  color: #000;
+}
+
+a {
+  text-decoration: none;
+  color: #b84f62;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+sup {
+  vertical-align: super;
+  font-size: 80%;
+}
+
+footer .fa-ul {
+  margin-left: 1.5em;
+}
+
+nav a {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+
+.blog-title a {
+  font-size: 3rem;
+  color: #000;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  letter-spacing: 0;
+  margin-bottom: 1rem;
+}
+
+.byline, .tags, .prerequisites {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #444;
+}
+
+.article-title {
+  margin-bottom: 1.5rem;
+}
+
+.article-title h1 {
+  margin-bottom: 0.1rem;
+}
+
+h2 {
+  font-size: 2.6rem;
+  font-weight: 500;
+  margin-top: 2.2rem;
+  margin-bottom: 0.4rem;
+}
+
+h3 {
+  font-size: 2.1rem;
+  margin-top: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+figcaption {
+  font-size: 1.7rem;
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-top: -1rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: 'Lora', serif;
+}
+
+em {
+  font-style: italic;
+}
+
+.article-body p {
+  font-size: 1.5rem;
+  font-family: 'Lora', serif;
+  margin-bottom: 0.75rem;
+}
+
+.article-body ol, .article-body ul {
+    font-size: 1.5rem;
+    font-family: 'Lora', serif;
+    margin-bottom: 0.75rem;
+}
+
+.article-body li {
+    margin-bottom: 0.75rem;
+}
+
+strong {
+  font-weight: bold;
+}
+
+footer {
+  font-size: 1.5rem;
+  color: #444;
+}
+
+footer h2 {
+  font-weight: normal;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  letter-spacing: 0;
+}
+
+ol, ul {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.post-title-link {
+  color: #b84f62;
+}
+
+.tagslist {
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.mjpage__block {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-large {
+  width: 40rem;
+}
+
+.image-pad-vertical {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.image-very-large {
+    width: 100%;
+}
+
+
+.image-medium {
+    width: 30rem;
+}
+
+.image-small {
+    width: 20rem;
+}
+
+
+.theorem {
+  border-left: 0.5rem solid #b84f62;
+  padding: 1rem;
+  margin: 1rem 0rem;
+  background-color: #b84f6212;
+  border-radius: 1rem;
+}
+
+.definition {
+  border-left: 0.5rem solid #b84f62;
+  padding: 1rem;
+  margin: 1rem 0rem;
+  background-color: #b84f6212;
+  border-radius: 1rem;
+}
+
+.comments {
+  text-align: center;
+}
+
+#show-comments-button {
+  width: 60%;
+  height: 4rem;
+  margin: 2rem 0;
+  padding: 0;
+  font-family: Dosis;
+  font-size: 1.8rem;
+  color: #b84f62;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#show-comments-button:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 54rem) {
+  body {
+    width: 90vw;
+    grid-template-columns: [left] 16rem [logo-right] auto [right];
+    grid-template-rows: [top] auto [nav-top] auto [content-top] auto [content-bottom] auto [bottom];
+  }
+
+  header.logo {
+    grid-column: left / logo-right;
+    grid-row: top / nav-top;
+  }
+
+  header.blog-title {
+    grid-column: logo-right / right;
+    grid-row: top / nav-top;
+  }
+
+  nav {
+    grid-column: left / right;
+    grid-row: nav-top / content-top;
+  }
+
+  .sidebar-container {
+    flex-direction: row;
+    margin-right: 0;
+    margin-top: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0rem;
+    border-bottom: 1px solid #888;
+  }
+
+  nav a {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+  }
+
+  main {
+    grid-column: left / right;
+    max-width: 90vw;
+  }
+
+  .main-container {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .image-large {
+    width: 70%;
+    min-width: 32rem;
+  }
+
+  .image-medium {
+    width: 45%;
+    min-width: 25rem;
+  }
+
+  .image-small {
+      width: 33%;
+      min-width: 18rem;
+  }
+
+  footer {
+    flex-direction: column;
+    padding-top: 0;
+  }
+
+  .footer-box {
+    padding-top: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 32rem) {
+  body {
+    width: 95vw;
+    grid-template-columns: [left] auto [right];
+    grid-template-rows: [top] auto [logo-bottom] auto [nav-top] auto [content-top] auto [content-bottom] auto [bottom];
+  }
+
+  header.logo {
+    grid-column: left / right;
+    grid-row: top / logo-bottom;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .logo-container {
+    justify-content: center;
+  }
+
+  header.blog-title {
+    grid-column: left / right;
+    grid-row: logo-bottom / nav-top;
+  }
+
+  .blog-title-container {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  nav {
+    grid-column: left / right;
+    grid-row: nav-top / content-top;
+  }
+
+  .sidebar-container {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  nav a {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  main {
+    grid-column: left / right;
+    max-width: 95vw;
+  }
+}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        $if(noindex)$
+        <meta name="robots" content="noindex">
+        $endif$
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        $if(canonical)$
+        <link rel="canonical" href="$canonical$" />
+        $else$
+        <link rel="canonical" href="$root$$url$" />
+        $endif$
+
+        $if(homepage)$
+        <title>Thomas Read's blog</title>
+        $else$
+        <title>$title$ - Thomas Read's blog</title>
+        $endif$
+
+        $if(meta_description)$
+        <meta name="description" content="$meta_description$" />
+        $endif$
+
+        $if(prod)$
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        $endif$
+
+        <link rel="stylesheet" href="/css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async
+                src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="/" aria-label="Thomas Read's blog">
+                <img src="/images/capybara.png" alt="" style="width: 15rem;"/>
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="/">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container" >
+                <a class="" href="/">Home</a>
+                <a href="#about">About</a>
+                <a href="/archive.html">Archive</a>
+                <a href="/rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                $body$
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box" >
+                $partial("about/about.html")$
+            </section>
+            <section class="footer-box" >
+                $partial("about/contact.html")$
+            </section>
+            <section class="footer-box">
+                $partial("about/this-site.html")$
+            </section>
+        </footer>
+    </body>
+</html>

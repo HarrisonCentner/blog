@@ -1,0 +1,64 @@
+cabal-version:      2.4
+name:               hbae
+version:            0.1.0.0
+license:            MIT
+copyright:          2025 Harrison Centner
+maintainer:         hcentner@umich.edu
+author:             Harrison Centner
+category:           Web
+
+-- TODO: Before hackage release.
+-- A short (one-line) description of the package.
+synopsis:           A template for Haskell projects using Nix
+
+-- A longer description of the package.
+-- description:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+
+extra-source-files:
+  LICENSE
+  README.md
+
+common shared
+  ghc-options:
+    -Wall -Wincomplete-record-updates -Wincomplete-uni-patterns
+    -Wmissing-deriving-strategies -Wunused-foralls -Wunused-foralls
+    -fprint-explicit-foralls -fprint-explicit-kinds -Werror
+
+  default-extensions:
+    DataKinds
+    DerivingStrategies
+    DerivingVia
+    LambdaCase
+    MultiWayIf
+    NoStarIsType
+    OverloadedStrings
+    StrictData
+    TypeFamilies
+    ViewPatterns
+
+  build-depends:
+    , aeson
+    , async
+    , base          
+    , data-default
+    , directory
+    , filepath
+    , mtl
+    , optics-core
+    , profunctors
+    , shower
+    , time
+    , hakyll
+    , pandoc
+    , text
+
+  hs-source-dirs:     static
+  default-language:   GHC2021
+
+executable site
+  import:  shared
+  hs-source-dirs:     static
+  main-is: site.hs

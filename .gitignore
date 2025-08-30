@@ -1,0 +1,18 @@
+# cabal
+dist
+dist-*
+cabal.project.local
+cabal.project.local~
+
+# hakyll
+_cache
+_site
+
+# nix
+result
+result-*
+
+# direnv
+.direnv
+
+/.pre-commit-config.yaml

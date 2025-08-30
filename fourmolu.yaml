@@ -1,0 +1,16 @@
+indentation: 4
+column-limit: 100
+function-arrows: leading-args
+comma-style: leading
+import-export-style: diff-friendly
+indent-wheres: false
+record-brace-space: false
+newlines-between-decls: 1
+haddock-style: single-line
+haddock-style-module: multi-line
+let-style: auto
+single-constraint-parens: auto
+unicode: detect
+respectful: true
+fixities: []
+reexports: []
