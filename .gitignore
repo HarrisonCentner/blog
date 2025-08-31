@@ -12,6 +12,11 @@ _site
 result
 result-*
 
+# vim
+*~
+*.swp
+*.swo
+
 # direnv
 .direnv
 
