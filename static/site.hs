@@ -1,28 +1,25 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE LambdaCase #-}
 import           Hakyll
 import           Text.Pandoc.Options
 import           System.Environment (lookupEnv)
 import           Data.Maybe (isJust)
 import           Control.Monad
--- import           System.FilePath
 
-{-
-robots, static, images, pdfs, css, imagesOrig, templates, diagramsOrig, cname, favicon, posts :: FilePath
-static = "static"
-images = static </> "images"
-pdfs = static </> "pdfs"
-css = static </> "css"
-imagesOrig = static </> "images-orig"
-templates = static </> "templates"
-diagramsOrig = static </> "diagrams-orig"
-cname = static </> "cname"
-favicon = static </> "favicon.ico"
-posts = static </> "posts"
-robots = static </> "robots.txt"
--}
-
+import Data.Text.IO qualified as T
+import Data.Text qualified as T
+import System.Environment (getArgs)
+import Text.Pandoc hiding (lookupEnv)
+import Text.Pandoc.Walk
+import Hakyll.Core.Compiler.Internal
+import Text.Pandoc.Readers.Typst    (readTypst)
+import Text.Pandoc.Writers.Markdown (writeMarkdown)
+import Text.Pandoc.Extensions       (pandocExtensions)
+import System.FilePath ((</>))
+import System.Directory
+--
 --------------------------------------------------------------------------------
 main :: IO ()
 main = do 
@@ -149,6 +146,31 @@ main = do
 
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+-- Utility Functions
+--------------------------------------------------------------------------------
+
+texifyInline :: Inline -> PandocIO Inline
+texifyInline = \case
+      Math dispType typstMath -> do 
+        texMathMb <- readTypst def ("$ " <> typstMath <> " $")
+        let texMath = case texMathMb of
+                        (Pandoc _ [Para [Math _disp texMathText]]) -> texMathText
+                        _huh -> "could not parse ????: " <> T.pack (show texMathMb)
+        pure $ Math dispType texMath
+      x -> pure x
+
+-- | converts a Pandoc document with inline Typst to inline TeX
+texifyTypst :: Pandoc -> IO Pandoc
+texifyTypst (Pandoc meta blocks)  = do
+  blocksMb' <- runIO $ walkM texifyInline blocks
+  blocks' <- handleError blocksMb'
+  pure $ Pandoc meta blocks'
+
+--------------------------------------------------------------------------------
+-- Blog Descriptions
+--------------------------------------------------------------------------------
+
 root :: String
 root = "https://blog.hbae.com"
 
@@ -164,7 +186,7 @@ customPandocCompiler =
         writerExtensions = enableExtension Ext_tex_math_single_backslash defaultWriterExtensions,
           writerHTMLMathMethod = MathJax ""
         }
-  in pandocCompilerWith readerOptions writerOptions
+  in pandocCompilerWithTransformM readerOptions writerOptions (compilerUnsafeIO . texifyTypst)
 
 myFeedConfiguration :: FeedConfiguration
 myFeedConfiguration = FeedConfiguration

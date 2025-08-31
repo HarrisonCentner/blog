@@ -1,9 +1,9 @@
 ----
-title: Omega-spectra and sequential spectra
-modified: 2022-10-03
+title: The Order Reciprocity Theorem
+modified: 2025-08-30
 meta_description: "In the first half of this post I'll give some brief motivation for considering Omega-spectra that doesn't rely on many prerequisites, as something like a space but with both positive and negative homotopy groups. In the second part of the post I'll try to describe how we use the theory of model categories to understand spectra, and why we need to think about sequential spectra as well as Omega-spectra."
-tags: Homotopy theory, Model categories
-prerequisites: homotopy theory (higher homotopy groups, loop spaces), model categories (some familiarity with basic concepts would be helpful)
+tags: Combinatorics
+prerequisites: Combinatorics (counting principles)
 ----
 
 ## Introduction
@@ -97,3 +97,7 @@ The key is that a model category really describes the homotopy theory of the fib
 ## Further study
 
 In the story so far, we've met the stable homotopy category, and a useful model category to use to study it. However this is not the end of the story. The stable homotopy category has a monoidal product called the smash product of spectra, making it into a symmetric monoidal category. It is possible to define the smash product on the category of sequential spectra, but it doesn't have good properties until you pass to the homotopy category. This led to the search for a new model category of spectra that has the same homotopy category, but where the symmetric monoidal structure of the homotopy category comes from a symmetric monoidal structure of the original category. There are various solutions to this problem, such as symmetric spectra and orthogonal spectra, but I'll leave discussing these for another day! A well-behaved smash product of spectra opens up whole new areas of stable homotopy theory; in particular the so-called "brave new algebra".
+
+
+
+\[f_n : X_n \to \Omega X_(n+1)\]
