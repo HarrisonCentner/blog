@@ -172,9 +172,16 @@ root = "https://blog.hbae.com"
 
 customPandocCompiler :: Compiler (Item String)
 customPandocCompiler =
-  let defaultReaderExtensions = readerExtensions defaultHakyllReaderOptions
+  let myExtensions = mconcat $ map enableExtension
+          [ Ext_lists_without_preceding_blankline
+          , Ext_fancy_lists
+          , Ext_example_lists
+          , Ext_definition_lists
+          , Ext_tex_math_single_backslash
+          ]
+      defaultReaderExtensions = readerExtensions defaultHakyllReaderOptions
       readerOptions = defaultHakyllReaderOptions {
-        readerExtensions = enableExtension Ext_tex_math_single_backslash defaultReaderExtensions
+        readerExtensions =  myExtensions defaultReaderExtensions
         }
 
       defaultWriterExtensions = writerExtensions defaultHakyllWriterOptions
