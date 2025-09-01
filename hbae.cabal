@@ -56,10 +56,10 @@ common shared
     , text
     , pandoc-types
 
-  hs-source-dirs:     static
+  hs-source-dirs:     src
   default-language:   GHC2021
 
 executable site
   import:  shared
-  hs-source-dirs:     static
+  hs-source-dirs:     src
   main-is: site.hs
