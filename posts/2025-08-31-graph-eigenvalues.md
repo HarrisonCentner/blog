@@ -1,10 +1,18 @@
 ----
 title: Eigenvalues of Special Graphs
 modified: 2025-08-31
-meta_description: "In the first half of this post I'll give some brief motivation for considering Omega-spectra that doesn't rely on many prerequisites, as something like a space but with both positive and negative homotopy groups. In the second part of the post I'll try to describe how we use the theory of model categories to understand spectra, and why we need to think about sequential spectra as well as Omega-spectra."
+meta_description: "This post is to test my MathJax/Typst integration."
 tags: Combinatorics
 prerequisites: Combinatorics (counting principles), Linear Algebra (eigenvalues)
 ----
+
+This post is to test my `MathJax`/`Typst` integration.  `MathJax` expects
+`LaTeX`. I prefer `Typst`. `Pandoc` stores math expressions as raw text, so 
+I walk a function $f : "Typst" -> "LaTeX"$ over the `Pandoc` AST 
+then do the remaining compiler passes.
+
+
+It is not meant to be informative, interesting, or readable.
 
 ## Eigenvalues of a Chain Graph
 

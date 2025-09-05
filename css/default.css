@@ -37,6 +37,10 @@ footer, header, hgroup, menu, nav, section {
   display: block;
 }
 ul {
+  list-style-type: none;
+  margin-left: 1.5em;
+}
+.content ul {
   list-style-type: disc;
   margin-left: 1.5em;
 }
@@ -277,6 +281,14 @@ em {
 
 .article-body li {
     margin-bottom: 0.75rem;
+}
+
+code {
+  background-color: #e0e0e0;  /* light gray background */
+  padding: 0.2em 0.4em;       /* space around text */
+  border-radius: 4px;         /* rounded corners */
+  font-family: monospace;     /* ensure code font */
+  font-size: 0.95em;          /* slightly smaller text */
 }
 
 strong {

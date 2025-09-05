@@ -6,28 +6,20 @@ import           Hakyll
 import           Text.Pandoc.Options
 import           System.Environment (lookupEnv)
 import           Data.Maybe (isJust)
-import           Control.Monad
 
-import Data.Text.IO qualified as T
 import Data.Text qualified as T
-import System.Environment (getArgs)
 import Text.Pandoc hiding (lookupEnv)
 import Text.Pandoc.Walk
 import Hakyll.Core.Compiler.Internal
-import Text.Pandoc.Readers.Typst    (readTypst)
-import Text.Pandoc.Writers.Markdown (writeMarkdown)
-import Text.Pandoc.Extensions       (pandocExtensions)
-import System.FilePath ((</>))
-import System.Directory
 --
 --------------------------------------------------------------------------------
 main :: IO ()
 main = do 
   prod <- isJust <$> lookupEnv "PROD"
   let myDefaultContext = mconcat
-                         [ boolField "prod" (const prod)
-                         , constField "root" root
-                         , defaultContext ]
+          [ boolField "prod" (const prod)
+          , constField "root" root
+          , defaultContext ]
   hakyll $ do
     match "images/*" $ do
       route   idRoute
@@ -80,11 +72,12 @@ main = do
       compile $ do
         posts <- recentFirst =<< loadAll "posts/**"
         tagList <- renderTagList tags
-        let myArchiveCtx = 
-              listField "posts" myPostCtx (return posts) `mappend`
-              constField "taglist"  tagList             `mappend`
-              constField "title" "Archives"            `mappend`
-              myDefaultContext 
+        let myArchiveCtx =  mconcat
+             [ listField "posts" myPostCtx (return posts) 
+             , constField "taglist"  tagList           
+             , constField "title" "Archives"            
+             , myDefaultContext 
+             ]
 
         makeItem ""
           >>= loadAndApplyTemplate "templates/archive.html" myArchiveCtx
@@ -103,22 +96,6 @@ main = do
                          ]
         makeItem ""
           >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
-
-    create ["rss.xml"] $ do
-      route idRoute
-      compile $ do
-        let feedCtx = mconcat
-                      [ teaserField "teaser" "content"
-                      , bodyField "description"
-                      , myPostCtx
-                      ]
-            absolutizeUrl u = if isExternal u then u else root ++ u
-        posts <- fmap (take 10) . recentFirst =<<
-          loadAllSnapshots "posts/*" "content"
-        processedPosts <- forM posts $
-          \p -> do pp <- loadAndApplyTemplate "templates/rss-description.html" feedCtx p
-                   return $ fmap (withUrls absolutizeUrl) pp
-        renderRss myFeedConfiguration feedCtx processedPosts
 
     match "index.html" $ do
       route idRoute
@@ -152,7 +129,7 @@ texifyInline = \case
         texMathMb <- readTypst def ("$ " <> typstMath <> " $")
         let texMath = case texMathMb of
                         (Pandoc _ [Para [Math _disp texMathText]]) -> texMathText
-                        _huh -> "could not parse ????: " <> T.pack (show texMathMb)
+                        _huh -> T.pack $ "could not parse ????: " ++ show texMathMb
         pure $ Math dispType texMath
       x -> pure x
 
@@ -190,12 +167,3 @@ customPandocCompiler =
           writerHTMLMathMethod = MathJax ""
         }
   in pandocCompilerWithTransformM readerOptions writerOptions (compilerUnsafeIO . texifyTypst)
-
-myFeedConfiguration :: FeedConfiguration
-myFeedConfiguration = FeedConfiguration
-    { feedTitle       = "Harrison Centner's blog"
-    , feedDescription = "My blog --- programming, maths, and security"
-    , feedAuthorName  = "Harrison Centner"
-    , feedAuthorEmail = "hcentner@umich.edu"
-    , feedRoot        = root
-    }
