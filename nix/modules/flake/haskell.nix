@@ -54,6 +54,6 @@
 
     # Default package & app.
     packages.default = self'.packages.hbae;
-    apps.default = self'.apps.hbae;
+    apps.default = self'.apps.site;
   };
 }

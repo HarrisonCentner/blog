@@ -1,58 +1,65 @@
---------------------------------------------------------------------------------
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE LambdaCase #-}
-import           Hakyll
-import           Text.Pandoc.Options
-import           System.Environment (lookupEnv)
-import           Data.Maybe (isJust)
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
-import Data.Text qualified as T
+--------------------------------------------------------------------------------
+
+import Hakyll
+import Text.Pandoc.Options
+
+import Hakyll.Core.Compiler.Internal
+import Relude hiding (fromList)
 import Text.Pandoc hiding (lookupEnv)
 import Text.Pandoc.Walk
-import Hakyll.Core.Compiler.Internal
---
+
 --------------------------------------------------------------------------------
 main :: IO ()
-main = do 
+main = do
   prod <- isJust <$> lookupEnv "PROD"
-  let myDefaultContext = mconcat
+  let myDefaultContext =
+        mconcat
           [ boolField "prod" (const prod)
           , constField "root" root
-          , defaultContext ]
+          , defaultContext
+          ]
   hakyll $ do
     match "images/*" $ do
-      route   idRoute
+      route idRoute
       compile copyFileCompiler
 
     match "css/*" $ do
-      route   idRoute
+      route idRoute
       compile compressCssCompiler
 
     match (fromList ["CNAME", "favicon.ico", "robots.txt"]) $ do
-      route   idRoute
+      route idRoute
       compile copyFileCompiler
 
     match "pages/*" $ do
-      route   $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
-      compile $ pandocCompiler
+      route $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
+      compile
+        $ pandocCompiler
         >>= loadAndApplyTemplate "templates/default.html" myDefaultContext
         >>= relativizeUrls
 
     tags <- buildTags "posts/**" (fromCapture "tags/*.html")
-    let myPostCtx = mconcat
-                    [ dateField "date" "%B %e, %Y"
-                    , tagsField "tags" tags
-                    , myDefaultContext ]
+    let myPostCtx =
+          mconcat
+            [ dateField "date" "%B %e, %Y"
+            , tagsField "tags" tags
+            , myDefaultContext
+            ]
     tagsRules tags $ \tag pat -> do
       route idRoute
       compile $ do
         posts <- recentFirst =<< loadAll pat
-        let myTagPageCtx = mconcat
-              [ listField "posts" myPostCtx (return posts)
-              , constField "title" $ "Posts tagged \"" ++ tag ++ "\""
-              , boolField "noindex" (pure True)
-              , myDefaultContext ]
+        let myTagPageCtx =
+              mconcat
+                [ listField "posts" myPostCtx (return posts)
+                , constField "title" $ "Posts tagged \"" ++ tag ++ "\""
+                , boolField "noindex" (pure True)
+                , myDefaultContext
+                ]
 
         makeItem ""
           >>= loadAndApplyTemplate "templates/tag.html" myTagPageCtx
@@ -61,9 +68,10 @@ main = do
 
     match "posts/**" $ do
       route $ setExtension "html"
-      compile $ customPandocCompiler
+      compile
+        $ customPandocCompiler
         >>= saveSnapshot "content"
-        >>= loadAndApplyTemplate "templates/post.html"    myPostCtx
+        >>= loadAndApplyTemplate "templates/post.html" myPostCtx
         >>= loadAndApplyTemplate "templates/default.html" myPostCtx
         >>= relativizeUrls
 
@@ -72,12 +80,13 @@ main = do
       compile $ do
         posts <- recentFirst =<< loadAll "posts/**"
         tagList <- renderTagList tags
-        let myArchiveCtx =  mconcat
-             [ listField "posts" myPostCtx (return posts) 
-             , constField "taglist"  tagList           
-             , constField "title" "Archives"            
-             , myDefaultContext 
-             ]
+        let myArchiveCtx =
+              mconcat
+                [ listField "posts" myPostCtx (return posts)
+                , constField "taglist" tagList
+                , constField "title" "Archives"
+                , myDefaultContext
+                ]
 
         makeItem ""
           >>= loadAndApplyTemplate "templates/archive.html" myArchiveCtx
@@ -85,15 +94,16 @@ main = do
           >>= relativizeUrls
 
     create ["sitemap.xml"] $ do
-      route   idRoute
+      route idRoute
       compile $ do
         posts <- recentFirst =<< loadAll "posts/*"
         pages <- loadAll "pages/*"
         let allPages = return (pages ++ posts)
-        let sitemapCtx = mconcat
-                         [ listField "pages" myPostCtx allPages
-                         , myDefaultContext
-                         ]
+        let sitemapCtx =
+              mconcat
+                [ listField "pages" myPostCtx allPages
+                , myDefaultContext
+                ]
         makeItem ""
           >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
@@ -103,11 +113,13 @@ main = do
         posts <- fmap (take 5) . recentFirst =<< loadAllSnapshots "posts/*" "content"
         let myTeaserPostCtx =
               teaserField "teaser" "content" <> myPostCtx
-            myIndexCtx = mconcat
-                         [ listField "posts" myTeaserPostCtx (return posts)
-                         , constField "canonical" (root ++ "/")
-                         , constField "homepage" "yes"
-                         , myDefaultContext ]
+            myIndexCtx =
+              mconcat
+                [ listField "posts" myTeaserPostCtx (return posts)
+                , constField "canonical" (root ++ "/")
+                , constField "homepage" "yes"
+                , myDefaultContext
+                ]
 
         getResourceBody
           >>= applyAsTemplate myIndexCtx
@@ -125,17 +137,17 @@ main = do
 
 texifyInline :: Inline -> PandocIO Inline
 texifyInline = \case
-      Math dispType typstMath -> do 
-        texMathMb <- readTypst def ("$ " <> typstMath <> " $")
-        let texMath = case texMathMb of
-                        (Pandoc _ [Para [Math _disp texMathText]]) -> texMathText
-                        _huh -> T.pack $ "could not parse ????: " ++ show texMathMb
-        pure $ Math dispType texMath
-      x -> pure x
+  Math dispType typstMath -> do
+    texMathMb <- readTypst def ("$ " <> typstMath <> " $")
+    let texMath = case texMathMb of
+          (Pandoc _ [Para [Math _disp texMathText]]) -> texMathText
+          _huh -> toText $ "could not parse ????: " ++ show texMathMb
+    pure $ Math dispType texMath
+  x -> pure x
 
 -- | converts a Pandoc document with inline Typst to inline TeX
 texifyTypst :: Pandoc -> IO Pandoc
-texifyTypst (Pandoc meta blocks)  = do
+texifyTypst (Pandoc meta blocks) = do
   blocksMb' <- runIO $ walkM texifyInline blocks
   blocks' <- handleError blocksMb'
   pure $ Pandoc meta blocks'
@@ -149,21 +161,26 @@ root = "https://blog.hbae.com"
 
 customPandocCompiler :: Compiler (Item String)
 customPandocCompiler =
-  let myExtensions = mconcat $ map enableExtension
-          [ Ext_lists_without_preceding_blankline
-          , Ext_fancy_lists
-          , Ext_example_lists
-          , Ext_definition_lists
-          , Ext_tex_math_single_backslash
-          ]
+  let myExtensions =
+        mconcat
+          $ map
+            enableExtension
+            [ Ext_lists_without_preceding_blankline
+            , Ext_fancy_lists
+            , Ext_example_lists
+            , Ext_definition_lists
+            , Ext_tex_math_single_backslash
+            ]
       defaultReaderExtensions = readerExtensions defaultHakyllReaderOptions
-      readerOptions = defaultHakyllReaderOptions {
-        readerExtensions =  myExtensions defaultReaderExtensions
-        }
+      readerOptions =
+        defaultHakyllReaderOptions
+          { readerExtensions = myExtensions defaultReaderExtensions
+          }
 
       defaultWriterExtensions = writerExtensions defaultHakyllWriterOptions
-      writerOptions = defaultHakyllWriterOptions {
-        writerExtensions = enableExtension Ext_tex_math_single_backslash defaultWriterExtensions,
-          writerHTMLMathMethod = MathJax ""
-        }
-  in pandocCompilerWithTransformM readerOptions writerOptions (compilerUnsafeIO . texifyTypst)
+      writerOptions =
+        defaultHakyllWriterOptions
+          { writerExtensions = enableExtension Ext_tex_math_single_backslash defaultWriterExtensions
+          , writerHTMLMathMethod = MathJax ""
+          }
+   in pandocCompilerWithTransformM readerOptions writerOptions (compilerUnsafeIO . texifyTypst)

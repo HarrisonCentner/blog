@@ -12,7 +12,7 @@ I walk a function $f : "Typst" -> "LaTeX"$ over the `Pandoc` AST
 then do the remaining compiler passes.
 
 
-It is not meant to be informative, interesting, or readable.
+This post is not meant to be informative, interesting, or readable.
 
 ## Eigenvalues of a Chain Graph
 

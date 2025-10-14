@@ -25,7 +25,7 @@ common shared
   ghc-options:
     -Wall -Wincomplete-record-updates -Wincomplete-uni-patterns
     -Wmissing-deriving-strategies -Wunused-foralls -Wunused-foralls
-    -fprint-explicit-foralls -fprint-explicit-kinds 
+    -fprint-explicit-foralls -fprint-explicit-kinds
 
   default-extensions:
     DataKinds
@@ -42,24 +42,25 @@ common shared
   build-depends:
     , aeson
     , async
-    , base          
+    , base
     , data-default
     , directory
     , filepath
+    , hakyll
     , mtl
     , optics-core
-    , profunctors
-    , shower
-    , time
-    , hakyll
     , pandoc
-    , text
     , pandoc-types
+    , profunctors
+    , relude
+    , shower
+    , text
+    , time
 
   hs-source-dirs:     src
   default-language:   GHC2021
 
 executable site
-  import:  shared
-  hs-source-dirs:     src
-  main-is: site.hs
+  import:         shared
+  hs-source-dirs: src
+  main-is:        site.hs
