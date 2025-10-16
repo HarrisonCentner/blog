@@ -19,10 +19,10 @@ This post is not meant to be informative, interesting, or readable.
 Let $G$ be the $n$-cycle with one edge removed.
 This graph is not regular.
 \[ A eq.def A(G) = mat( delim: "[",
-    0, 1, , ; \
-    1, 0, 1, ;\
-     , 1, 0, 1;\
-     ,  , , dots.down;\
+    0, 1, , ;
+    1, 0, 1, ;
+     , 1, 0, 1;
+     ,  , , dots.down;
    )
 \]
 
@@ -39,10 +39,10 @@ closely related to Chebyshev Polynomials.
 Consider a more general determinant (of Toeplitz Matrices)
 \[ h_n (a,b) =
 mat( delim: "[",
-a+b, -a b, , ; \
--1, a+b, -a b, ;\
-    , -1, a+b, -a b;\
-    ,  , , dots.down;\
+a+b, -a b, , ; 
+-1, a+b, -a b, ;
+    , -1, a+b, -a b;
+    ,  , , dots.down;
 ).
 \]
 Exploring small values we see that

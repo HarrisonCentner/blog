@@ -35,13 +35,6 @@ main = do
       route idRoute
       compile copyFileCompiler
 
-    match "pages/*" $ do
-      route $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
-      compile
-        $ pandocCompiler
-        >>= loadAndApplyTemplate "templates/default.html" myDefaultContext
-        >>= relativizeUrls
-
     tags <- buildTags "posts/**" (fromCapture "tags/*.html")
     let myPostCtx =
           mconcat
@@ -91,6 +84,20 @@ main = do
         makeItem ""
           >>= loadAndApplyTemplate "templates/archive.html" myArchiveCtx
           >>= loadAndApplyTemplate "templates/default.html" myArchiveCtx
+          >>= relativizeUrls
+
+    match "about.html" $ do
+      route idRoute
+      compile $ do
+        let myAboutCtx =
+              mconcat
+                [ constField "title" "About"
+                , myDefaultContext
+                ]
+
+        makeItem ""
+          >>= loadAndApplyTemplate "templates/about.html" myAboutCtx
+          >>= loadAndApplyTemplate "templates/default.html" myAboutCtx
           >>= relativizeUrls
 
     create ["sitemap.xml"] $ do
