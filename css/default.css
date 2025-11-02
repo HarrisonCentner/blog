@@ -77,15 +77,29 @@ html {
 
 body {
   display: grid;
-  grid-template-columns: [left] 16rem [content] auto [right];
+  grid-template-columns: [left] 16rem [divider] 0.1rem [content] auto [right];
   grid-template-rows: [top] auto [content-top] auto [content-bottom] auto [bottom];
   max-width: 80rem;
   margin: auto;
+  font-family: "Computer Modern", "Lora", serif;
+  position: relative; /* allow absolute positioning for divider */
+}
+
+/* vertical divider only between header and footer */
+body::before {
+  content: "";
+  position: absolute;
+  left: 16rem;               /* aligns with end of left sidebar */
+  top: calc(var(--header-height, 8rem) + 2rem); /* start just below header */
+  bottom: 8rem;              /* end above footer */
+  width: 1px;
+  background-color: #ccc;
+  z-index: 0;
 }
 
 header.logo {
   border-bottom: 1px solid #888;
-  grid-column: left / content;
+  grid-column: left / divider;
   grid-row: top / content-top;
   align-self: end;
   padding-bottom: 1rem;
@@ -172,7 +186,7 @@ footer {
 
 body {
   font-size: 2rem;
-  font-family: 'Dosis', sans-serif;
+  font-family: "Computer Modern", "Lora", serif;
   letter-spacing: 0.02rem;
   line-height: 1.4;
   text-rendering: optimizeLegibility;
@@ -205,8 +219,9 @@ nav a {
 }
 
 .blog-title a {
-  font-size: 3rem;
-  color: #000;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #545454;
   text-decoration: none;
 }
 
@@ -404,6 +419,10 @@ ol, ul {
     width: 90vw;
     grid-template-columns: [left] 16rem [logo-right] auto [right];
     grid-template-rows: [top] auto [nav-top] auto [content-top] auto [content-bottom] auto [bottom];
+  }
+
+  body::before {
+    display: none;
   }
 
   header.logo {
