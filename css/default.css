@@ -101,17 +101,17 @@ header.logo {
   border-bottom: 1px solid #888;
   grid-column: left / divider;
   grid-row: top / content-top;
-  align-self: end;
   padding-bottom: 1rem;
+  justify-self: end;
   margin-top: 1rem;
+  width: 112px;
 }
 
 .logo-container {
-  align-items: center;          /* optional: vertically center the logo if needed */
-  width: auto;                  /* ensure it doesn’t stretch */
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  width: 112px;
 }
 
 header.blog-title {
@@ -419,7 +419,7 @@ ol, ul {
 @media (max-width: 54rem) {
   body {
     width: 90vw;
-    grid-template-columns: [left] 16rem [logo-right] auto [right];
+    grid-template-columns: [left] 12rem [logo-right] auto [right];
     grid-template-rows: [top] auto [nav-top] auto [content-top] auto [content-bottom] auto [bottom];
   }
 
@@ -428,14 +428,13 @@ ol, ul {
   }
 
   header.logo {
-    border-bottom: none;
-    grid-column: left / logo-right;
+    grid-column: left / 2;
     grid-row: top / nav-top;
+    justify-self: end;
   }
 
   header.blog-title {
     border-collapse: collapse;
-    border-bottom: none;
     grid-column: logo-right / right;
     grid-row: top / nav-top;
   }
@@ -449,12 +448,12 @@ ol, ul {
     flex-direction: row;
     margin-right: 0;
     margin-top: 0;
-    margin-left: 2.5rem;
+    margin-left: 2rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     margin-bottom: 0rem;
     border-bottom: 1px solid #888;
-    border-top: 1px solid #888;
+    border-top: none;
   }
 
   nav a {
