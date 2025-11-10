@@ -11,7 +11,7 @@
     };
 
     # https://omnix.page/om/init.html#spec
-    om.templates.hbae = {
+    om.templates.hcentner-blog = {
       template = templates.default;
       params = [
         {
@@ -22,7 +22,7 @@
         {
           name = "package-name";
           description = "Name of the Haskell package";
-          placeholder = "hbae";
+          placeholder = "hcentner-blog";
         }
         {
           name = "vscode";

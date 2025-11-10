@@ -16,7 +16,7 @@
         inherit root;
         fileset = lib.fileset.unions [
           (root + /src)
-          (root + /hbae.cabal)
+          (root + /hcentner-blog.cabal)
           (root + /LICENSE)
           (root + /README.md)
         ];
@@ -37,7 +37,7 @@
 
       # Add your package overrides here
       settings = {
-        hbae = {
+        hcentner-blog = {
           stan = true;
           # haddock = false;
         };
@@ -53,7 +53,7 @@
     };
 
     # Default package & app.
-    packages.default = self'.packages.hbae;
+    packages.default = self'.packages.hcentner-blog;
     apps.default = self'.apps.site;
   };
 }

@@ -164,7 +164,7 @@ texifyTypst (Pandoc meta blocks) = do
 --------------------------------------------------------------------------------
 
 root :: String
-root = "https://blog.hbae.com"
+root = "https://hcentner.dev"
 
 customPandocCompiler :: Compiler (Item String)
 customPandocCompiler =
