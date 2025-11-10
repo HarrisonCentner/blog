@@ -133,8 +133,8 @@ main {
 
 .main-container {
   margin-top: 2rem;
-  margin-left: 2rem;
   margin-bottom: 2rem;
+  margin-left: 0em;
 }
 
 nav {
@@ -225,6 +225,7 @@ nav a {
   font-weight: bold;
   color: #545454;
   text-decoration: none;
+  padding-left: 1rem;
 }
 
 h1 {
@@ -468,8 +469,8 @@ ol, ul {
 
   .main-container {
     margin-top: 0;
-    padding-left: 3rem;
-    margin-left: 0;
+    padding-left: 0rem;
+    margin-left: -0.125em;
   }
 
   .image-large {
