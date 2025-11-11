@@ -6,8 +6,11 @@
 */
 
 :root {
-  --primary-color: #d35271;/* #f7ca46; */ /* red #ad362a; */ /* pink #F56FA1; */ /*b84f628*/
+  --primary-color: #e25971; /* #ea4b72;#f7ca46; */ /* red #ad362a; */ /* pink #F56FA1; */ /*b84f628*/
   --secondary-color: #fadd4b;/* #f7ca46; */ /* red #ad362a; */ /* pink #F56FA1; */ /*b84f628*/
+  --dark-grey-color: #434343;
+  --medium-grey-color: #545454;
+  --light-grey-color: #767676;
   --font-size-base: 16px;
 }
 
@@ -132,7 +135,7 @@ header.blog-title {
 }
 
 main {
-  grid-column: content / right;
+  grid-column: divider / right;
   grid-row: content-top / content-bottom;
 }
 
@@ -161,14 +164,16 @@ nav a {
 }
 
 footer {
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   border-top: 1px solid #888;
   grid-column: left / right;
   grid-row: content-bottom / bottom;
-
+  margin-left: 6rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 .footer-box {
@@ -237,9 +242,9 @@ nav a {
 }
 
 .blog-title a {
-  font-size: 4rem;
+  font-size: 4.6rem;
   font-weight: bold;
-  color: #545454;
+  color: var(--primary-color);
   text-decoration: none;
   padding-left: 1rem;
 }
@@ -249,12 +254,13 @@ h1 {
   font-weight: bold;
   letter-spacing: 0;
   margin-bottom: 1rem;
+  color: var(--dark-grey-color);
 }
 
 .byline, .tags, .prerequisites {
   font-size: 1.5rem;
   font-style: italic;
-  color: #444;
+  color: var(--light-grey-color);
 }
 
 .article-title {
@@ -270,6 +276,7 @@ h2 {
   font-weight: 500;
   margin-top: 2.2rem;
   margin-bottom: 0.4rem;
+  color: var(--dark-grey-color);
 }
 
 h3 {
@@ -305,6 +312,7 @@ em {
   font-size: 1.5rem;
   font-family: 'Lora', serif;
   margin-bottom: 0.75rem;
+  color: var(--dark-grey-color);
 }
 
 .article-body ol, .article-body ul {
@@ -331,7 +339,7 @@ strong {
 
 footer {
   font-size: 1.5rem;
-  color: #444;
+  color: var(--light-grey-color);
 }
 
 footer h2 {
@@ -504,16 +512,22 @@ ol, ul {
   }
 
   footer {
-    flex-direction: column;
-    padding-top: 0;
+    padding-top: 1rem;
+    margin-left: 2rem;
+    justify-content: end;
   }
 
-  .footer-box {
-    padding-top: 2rem;
-    padding-left: 0;
-    padding-right: 0;
+  .teaser::after {
+    content: "";
+    padding-bottom: 2rem;
+    position: absolute;
+    left: 3rem;          /* start the border 3rem from the left */
+    right: 0;            /* keep full width minus left offset */
+    height: 1px;         /* border thickness */
+    border-bottom: 1px solid #888;
   }
 }
+
 
 @media (max-width: 32rem) {
   body {
