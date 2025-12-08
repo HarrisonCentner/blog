@@ -3,15 +3,83 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
-*/
 
 :root {
-  --primary-color: #e25971; /* #ea4b72;#f7ca46; */ /* red #ad362a; */ /* pink #F56FA1; */ /*b84f628*/
-  --secondary-color: #fadd4b;/* #f7ca46; */ /* red #ad362a; */ /* pink #F56FA1; */ /*b84f628*/
+  --primary-color: #e25971; 
+  --secondary-color: #fadd4b;
   --dark-grey-color: #434343;
   --medium-grey-color: #545454;
   --light-grey-color: #767676;
   --font-size-base: 16px;
+}
+
+*/
+
+/* =========================================================
+   Automatic Light/Dark Mode
+   ========================================================= */
+
+/* Light mode (default) — uses your existing color design */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #888;
+  --code-bg: #e0e0e0;
+
+  --primary-color: #e25971;
+  --secondary-color: #fadd4b;
+
+  --dark-grey-color: #434343;
+  --medium-grey-color: #545454;
+  --light-grey-color: #767676;
+}
+
+/* Dark mode — overrides only the colors that need changing */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1b1b1b;
+    --text-color: #e6e6e6;
+    --border-color: #555;
+    --code-bg: #333;
+
+    /* your accent colors can be kept or adjusted */
+    --primary-color: #ff6f91;
+    --secondary-color: #e8c84d;
+
+    --dark-grey-color: #e0e0e0;
+    --medium-grey-color: #c0c0c0;
+    --light-grey-color: #aaaaaa;
+  }
+}
+
+/* Apply the variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Borders */
+body::before,
+header.logo,
+header.blog-title,
+footer,
+.sidebar-container,
+.teaser::after {
+  border-color: var(--border-color) !important;
+}
+
+/* Code blocks */
+code {
+  background-color: var(--code-bg);
+}
+
+/* Headings inherit updated dark-grey-color */
+h1, h2, h3, h4 {
+  color: var(--dark-grey-color);
+}
+
+.byline, .tags, .prerequisites, footer {
+  color: var(--light-grey-color);
 }
 
 html, body, div, span, applet, object, iframe,
