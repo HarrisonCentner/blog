@@ -25,8 +25,7 @@ I found myself using `ultisnips` much less once I switched to Typst.
 
 I created a vim shell hook which ran when I opened a `.typ` document. 
 
-The hook would
-1. open a new `tmux` frame, 
+The hook would 1. open a new `tmux` frame, 
 1. pipe a `typst watch` command on the edited file, and
 1. open the corresponding `pdf` in `skim`.
 
