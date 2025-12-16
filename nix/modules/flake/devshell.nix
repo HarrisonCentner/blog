@@ -19,6 +19,8 @@
         just
         nixd
         ghciwatch
+        nodejs
+        wrangler
       ];
     };
   };
