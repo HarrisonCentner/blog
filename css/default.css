@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
+b, u,  center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -33,7 +33,9 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  color: var(--dark-grey-color);
 }
+
 /* HTML5 display-role reset for older browsers */
 aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -249,12 +251,16 @@ nav a {
   padding-left: 1rem;
 }
 
+i {
+  color: var(--primary-color);
+}
+
 h1 {
   font-size: 2.8rem;
   font-weight: bold;
   letter-spacing: 0;
   margin-bottom: 1rem;
-  color: var(--dark-grey-color);
+  color: var(--primary-color);
 }
 
 .byline, .tags, .prerequisites {
