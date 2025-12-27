@@ -26,7 +26,7 @@ This graph is not regular.
    )
 \]
 
-The eigenvalues of $A_n$ are $2 dot.c cos( frac(pi k, n+1))$.
+The eigenvalues of $A_n$ are $2 dot.c cos ( frac(pi k, n+1))$.
 
 
 The characteristic polynomial of $A_n$ is
@@ -66,9 +66,9 @@ a recurrence is common for (tri)-diagonal matrices.
 
 Now set $b := frac(1,a)$. Then
 
-\[ T_n (a+a^(-1)) = h_n (a, a^(-1)) = frac(a^(n+1) - a^(-(n+1)), a -a^(-1)). \]
+\[ T_n ( a+a^(-1) ) = h_n (a, a^(-1)) = frac(a^(n+1) - a^(-(n+1)), a -a^(-1)). \]
 This vanishes when $a^(2(n+1)) = 1$ but $a^2 eq.not 1$.
 That is, 
 \[a = e^(frac(2 pi i k, 2(n+1))) = e^(frac(pi i k, n+1)).\]
 for $k in [n]$ since $1$ and $n+1$ are forbidden by our vanishing rules.
-Summing \[ t = a + a^(-1) = 2 dot.op cos( frac(pi k, n+1)).\]
+Summing \[ t = a + a^(-1) = 2 dot.op cos ( frac(pi k, n+1) ).\]
