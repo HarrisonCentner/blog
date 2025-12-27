@@ -25,6 +25,7 @@
   --text-color: #000000;
   --border-color: #888;
   --code-bg: #e0e0e0;
+  --code-text: #000000;
 
   --primary-color: #e25971;
   --secondary-color: #fadd4b;
@@ -37,10 +38,11 @@
 /* Dark mode — overrides only the colors that need changing */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #1b1b1b;
+    --bg-color: #2b2b2b;
     --text-color: #e6e6e6;
     --border-color: #555;
-    --code-bg: #333;
+    --code-bg: #4b4b4b;
+    --code-text: #e0e0e0;
 
     /* your accent colors can be kept or adjusted */
     --primary-color: #ff6f91;
@@ -68,10 +70,6 @@ footer,
   border-color: var(--border-color) !important;
 }
 
-/* Code blocks */
-code {
-  background-color: var(--code-bg);
-}
 
 /* Headings inherit updated dark-grey-color */
 h1, h2, h3, h4 {
@@ -84,7 +82,7 @@ h1, h2, h3, h4 {
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
+a, abbr, acronym, address, big, cite, /* code, */
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u,  center,
@@ -102,6 +100,13 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
   color: var(--dark-grey-color);
+}
+
+
+/* Code blocks */
+code {
+  background-color: var(--code-bg);
+  color: var(--code-text);
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -185,6 +190,7 @@ header.logo {
   width: 112px;
 }
 
+/* TODO: make logo-container have transparent background */
 .logo-container {
   display: flex;
   flex-direction: row;
@@ -400,7 +406,7 @@ em {
 }
 
 code {
-  background-color: #e0e0e0;  /* light gray background */
+  background-color: var(--code-bg);  /* light gray background */
   padding: 0.2em 0.4em;       /* space around text */
   border-radius: 4px;         /* rounded corners */
   font-family: monospace;     /* ensure code font */
